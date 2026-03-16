@@ -56,6 +56,8 @@ startBtn.addEventListener('click', () => {
         const currentTime = new Date();
         const deltaTime = userSelectedDate - currentTime;
         if (deltaTime < 0) {
+
+            datetimePicker.disabled = false;
             clearInterval(timerId);
             updateTimerInterface({ days: 0, hours: 0, minutes: 0, seconds: 0 });
             return;
