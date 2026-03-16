@@ -1,6 +1,8 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import iziToast from "izitoast";
 
+import "izitoast/dist/css/iziToast.min.css";
 
 
 console.log('timer');
@@ -29,8 +31,13 @@ const options = {
       const selectedDate = selectedDates;
       console.log(selectedDates[0]);
       
-      if (selectedDate[0] < new Date()) {
-          alert("Please choose a date in the future");
+        if (selectedDate[0] <= new Date()) {
+              iziToast.error({
+                title: 'Error',
+                message: "Please choose a date in the future",
+        position: 'topRight'
+            });
+        
           startBtn.disabled = true;
 
       } else {
@@ -48,7 +55,7 @@ startBtn.addEventListener('click', () => {
     timerId = setInterval(() => {
         const currentTime = new Date();
         const deltaTime = userSelectedDate - currentTime;
-        if (deltaTime <= 0) {
+        if (deltaTime < 0) {
             clearInterval(timerId);
             updateTimerInterface({ days: 0, hours: 0, minutes: 0, seconds: 0 });
             return;
